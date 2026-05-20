@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Josemon James — Aspiring SOC Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void:    #030508;
+  --base:    #070a0f;
+  --surface: #0c1018;
+  --card:    #101520;
+  --lift:    #151c28;
+  --hr:      rgba(255,255,255,0.06);
+  --hr-sky:  rgba(56,189,248,0.2);
+  --t1:      #eef2f8;
+  --t2:      #8895aa;
+  --t3:      #3d4d62;
+  --sky:     #38bdf8;
+  --sky-dim: rgba(56,189,248,0.08);
+  --sky-mid: rgba(56,189,248,0.15);
+  --green:   #2ddb78;
+  --amber:   #f5c842;
+  --mono:    'JetBrains Mono', monospace;
+  --sans:    'Syne', sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--t1);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--hr) 1px,transparent 1px),linear-gradient(90deg,var(--hr) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+body::after{
+  content:'';position:fixed;top:-20%;left:50%;transform:translateX(-50%);
+  width:800px;height:600px;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(56,189,248,0.04) 0%,transparent 65%);
+}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(3,5,8,0.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--hr)}
+.nav-inner{max-width:1040px;margin:0 auto;padding:.9rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-family:var(--mono);font-size:.85rem;font-weight:600;color:var(--t1);text-decoration:none}
+.nav-brand span{color:var(--sky)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:.75rem;color:var(--t2);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--sky)}
+.nav-cta{font-family:var(--mono);font-size:.75rem;padding:.35rem .9rem;border:1px solid var(--sky-mid);border-radius:3px;color:var(--sky);text-decoration:none;background:var(--sky-dim);transition:all .2s}
+.nav-cta:hover{background:rgba(56,189,248,.18);border-color:var(--sky)}
+
+/* LAYOUT */
+.wrap{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding:0 2rem}
+section{padding:5.5rem 0;border-bottom:1px solid var(--hr)}
+section:last-of-type{border-bottom:none}
+
+.eyebrow{font-family:var(--mono);font-size:.65rem;color:var(--sky);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:.8rem;display:flex;align-items:center;gap:.6rem}
+.eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--sky)}
+h2.stitle{font-size:1.9rem;font-weight:700;letter-spacing:-.5px;margin-bottom:2.5rem;line-height:1.15}
+
+/* HERO */
+#hero{padding:8rem 0 6rem}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--sky-dim);border:1px solid var(--sky-mid);border-radius:4px;padding:.25rem .75rem;margin-bottom:2rem}
+.badge-dot{width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:glow 2s infinite}
+@keyframes glow{0%,100%{opacity:.5;box-shadow:0 0 4px var(--green)}50%{opacity:1;box-shadow:0 0 14px var(--green)}}
+.badge-text{font-family:var(--mono);font-size:.65rem;color:var(--sky);letter-spacing:1px}
+
+.hero-name{font-size:clamp(2.8rem,6vw,4.8rem);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:.6rem}
+.hero-name .accent{color:var(--sky);position:relative;display:inline-block}
+.hero-name .accent::after{content:'';position:absolute;bottom:-4px;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--sky),transparent)}
+.hero-role{font-family:var(--mono);font-size:.95rem;color:var(--t2);margin-bottom:1.8rem;font-weight:300}
+.hero-role span{color:var(--sky)}
+.hero-bio{font-size:1.05rem;color:var(--t2);max-width:600px;line-height:1.75;margin-bottom:2.5rem}
+.hero-bio strong{color:var(--t1);font-weight:600}
+
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-p{padding:.75rem 1.8rem;font-family:var(--mono);font-size:.85rem;font-weight:500;background:var(--sky);color:#030508;border-radius:4px;text-decoration:none;transition:all .2s;display:inline-block}
+.btn-p:hover{opacity:.9;transform:translateY(-1px)}
+.btn-s{padding:.75rem 1.8rem;font-family:var(--mono);font-size:.85rem;font-weight:500;background:transparent;color:var(--t1);border:1px solid var(--hr);border-radius:4px;text-decoration:none;transition:all .2s;display:inline-block}
+.btn-s:hover{background:var(--surface);border-color:rgba(255,255,255,.15)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-text p{font-size:1rem;color:var(--t2);line-height:1.8;margin-bottom:1.2rem}
+.about-text p:last-child{margin-bottom:0}
+.about-text strong{color:var(--t1)}
+
+.profile-card{background:var(--card);border:1px solid var(--hr);border-radius:6px;overflow:hidden}
+.pc-header{background:var(--surface);border-bottom:1px solid var(--hr);padding:.6rem 1rem;display:flex;align-items:center;justify-content:space-between}
+.pc-title{font-family:var(--mono);font-size:.65rem;color:var(--t3)}
+.pc-dots{display:flex;gap:.35rem}
+.pc-dot{width:8px;height:8px;border-radius:50%;background:var(--hr)}
+.pc-body{padding:1.4rem;font-family:var(--mono);font-size:.78rem;line-height:2.1}
+.pc-row{display:flex;justify-content:space-between;gap:1rem}
+.pc-key{color:var(--t3);flex-shrink:0}
+.pc-val{color:var(--t1);text-align:right}
+.pc-val.sky{color:var(--sky)}
+.pc-val.green{color:var(--green)}
+.pc-val.amber{color:var(--amber)}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.skill-card{background:var(--card);border:1px solid var(--hr);border-radius:5px;padding:1.4rem;transition:border-color .2s,transform .2s}
+.skill-card:hover{border-color:var(--hr-sky);transform:translateY(-2px)}
+.skill-icon{font-size:1.3rem;margin-bottom:.8rem;display:block}
+.skill-name{font-size:.95rem;font-weight:600;margin-bottom:.4rem;color:var(--t1)}
+.skill-desc{font-family:var(--mono);font-size:.72rem;color:var(--t2);line-height:1.7}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+.tag{font-family:var(--mono);font-size:.63rem;padding:.18rem .5rem;background:var(--lift);border:1px solid var(--hr);border-radius:3px;color:var(--t2)}
+.tag.s{color:var(--sky);background:var(--sky-dim);border-color:var(--sky-mid)}
+
+/* PROJECTS */
+.proj-row{padding:2.5rem 0;border-bottom:1px solid var(--hr);display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start}
+.proj-row:first-child{padding-top:0}
+.proj-row:last-child{border-bottom:none;padding-bottom:0}
+.proj-cat{font-family:var(--mono);font-size:.63rem;color:var(--sky);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.4rem;display:block}
+.proj-name{font-size:1.2rem;font-weight:700;letter-spacing:-.3px;margin-bottom:.6rem;color:var(--t1)}
+.proj-desc{font-size:.9rem;color:var(--t2);line-height:1.75;max-width:560px;margin-bottom:1.2rem}
+.proj-links{display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;flex-shrink:0}
+.plink{font-family:var(--mono);font-size:.72rem;color:var(--t1);text-decoration:none;border:1px solid var(--hr);padding:.4rem .85rem;border-radius:3px;background:var(--surface);transition:all .2s;white-space:nowrap}
+.plink:hover{border-color:var(--sky-mid);color:var(--sky);background:var(--sky-dim)}
+.plink.hot{border-color:var(--sky-mid);color:var(--sky);background:var(--sky-dim)}
+.plink.hot:hover{background:rgba(56,189,248,.2)}
+
+/* LEARNING */
+.learning-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
+.learn-card{background:var(--card);border:1px solid var(--hr);border-radius:5px;padding:1.3rem 1.5rem;display:flex;align-items:flex-start;gap:1rem;transition:border-color .2s}
+.learn-card:hover{border-color:var(--hr-sky)}
+.learn-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.learn-name{font-size:.9rem;font-weight:600;color:var(--t1);margin-bottom:.3rem}
+.learn-sub{font-family:var(--mono);font-size:.7rem;color:var(--t2);line-height:1.6}
+.learn-sub span{color:var(--amber)}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-intro{font-size:1rem;color:var(--t2);line-height:1.8;margin-bottom:2rem}
+.contact-intro strong{color:var(--t1)}
+.clinks{display:flex;flex-direction:column;gap:.8rem}
+.clink{display:flex;align-items:center;gap:1rem;font-family:var(--mono);font-size:.82rem;color:var(--t1);text-decoration:none;padding:.8rem 1rem;background:var(--card);border:1px solid var(--hr);border-radius:4px;transition:all .2s}
+.clink:hover{border-color:var(--hr-sky);background:var(--lift);transform:translateX(3px)}
+.clink-icon{font-size:1rem;width:20px;text-align:center}
+.clink-lbl{color:var(--t3);font-size:.68rem;margin-left:auto}
+
+.avail-card{background:var(--card);border:1px solid rgba(45,219,120,.15);border-radius:6px;padding:1.6rem}
+.avail-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
+.avail-dot{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:glow 2s infinite}
+.avail-title{font-family:var(--mono);font-size:.75rem;color:var(--green);font-weight:500}
+.avail-body{font-family:var(--mono);font-size:.78rem;color:var(--t2);line-height:1}
+.avail-row{display:flex;justify-content:space-between;padding:.45rem 0;border-bottom:1px solid var(--hr)}
+.avail-row:last-child{border-bottom:none}
+.avail-key{color:var(--t3)}
+.avail-val{color:var(--t1)}
+.avail-val.g{color:var(--green)}
+
+/* FOOTER */
+footer{position:relative;z-index:1;border-top:1px solid var(--hr);padding:2rem 0}
+.foot-inner{max-width:1040px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center}
+.foot-copy{font-family:var(--mono);font-size:.65rem;color:var(--t3)}
+.foot-copy strong{color:var(--t2)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+  .nav-links{display:none}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .learning-grid{grid-template-columns:1fr}
+  .proj-row{grid-template-columns:1fr;gap:1rem}
+  .proj-links{flex-direction:row;flex-wrap:wrap}
+}
+@media(max-width:500px){
+  .skills-grid{grid-template-columns:1fr}
+  .wrap{padding:0 1.2rem}
+  .hero-name{font-size:2.6rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#"><span>jj</span>.dev</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#learning">Learning</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="mailto:your@email.com">Hire Me →</a>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section id="hero">
+<div class="wrap">
+  <div class="hero-badge">
+    <div class="badge-dot"></div>
+    <span class="badge-text">Actively Looking · Entry Level · 2025</span>
+  </div>
+  <h1 class="hero-name">Josemon<br><span class="accent">James</span></h1>
+  <p class="hero-role">Aspiring <span>Cybersecurity Analyst</span> &nbsp;·&nbsp; Blue Team &nbsp;·&nbsp; SOC</p>
+  <p class="hero-bio">
+    Self-taught security enthusiast breaking into the industry through <strong>hands-on lab work,
+    real project builds, and continuous learning</strong>. Focused on threat detection, network defence,
+    and building the fundamentals that make a great SOC analyst.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-p" href="#projects">See My Work</a>
+    <a class="btn-s" href="#contact">Get In Touch</a>
+    <a class="btn-s" href="#" id="cv-btn">Download CV ↓</a>
+  </div>
+</div>
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+<div class="wrap">
+  <div class="eyebrow">About Me</div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <h2 class="stitle">Entry-level hunger,<br>senior-level curiosity</h2>
+      <p>
+        I'm Josemon James — a self-driven security enthusiast who decided the best way to break into
+        cybersecurity is to <strong>build things, break things, and document everything</strong>.
+        No corporate experience yet, but a genuine passion for how attacks work and how defenders stop them.
+      </p>
+      <p>
+        I spend my time in home labs, working through platforms like TryHackMe, studying network protocols,
+        and building projects that demonstrate real security concepts — not just theory.
+      </p>
+      <p>
+        I'm looking for my <strong>first role in a SOC or security team</strong> where I can contribute
+        from day one while growing fast under experienced analysts.
+      </p>
+    </div>
+    <div class="profile-card">
+      <div class="pc-header">
+        <span class="pc-title">analyst.profile</span>
+        <div class="pc-dots"><div class="pc-dot"></div><div class="pc-dot"></div><div class="pc-dot"></div></div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-row"><span class="pc-key">name</span><span class="pc-val">Josemon James</span></div>
+        <div class="pc-row"><span class="pc-key">target-role</span><span class="pc-val sky">SOC Analyst L1</span></div>
+        <div class="pc-row"><span class="pc-key">focus</span><span class="pc-val">Blue Team / Defence</span></div>
+        <div class="pc-row"><span class="pc-key">background</span><span class="pc-val">Self-Taught</span></div>
+        <div class="pc-row"><span class="pc-key">location</span><span class="pc-val"><!-- Your city --></span></div>
+        <div class="pc-row"><span class="pc-key">exp-level</span><span class="pc-val amber">Entry Level</span></div>
+        <div class="pc-row"><span class="pc-key">status</span><span class="pc-val green">● Open to hire</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!-- SKILLS -->
+<section id="skills">
+<div class="wrap">
+  <div class="eyebrow">Technical Skills</div>
+  <h2 class="stitle">What I Know</h2>
+  <div class="skills-grid">
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">🌐</span>
+      <div class="skill-name">Networking Fundamentals</div>
+      <div class="skill-desc">TCP/IP, DNS, HTTP, subnetting, packet flow — the foundation of understanding what "normal" looks like before spotting what isn't.</div>
+      <div class="tags">
+        <span class="tag s">TCP/IP</span><span class="tag s">DNS</span>
+        <span class="tag">Subnetting</span><span class="tag">Wireshark</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">🔍</span>
+      <div class="skill-name">Recon & OSINT</div>
+      <div class="skill-desc">Passive browser fingerprinting, metadata analysis, and open-source intelligence gathering — demonstrated through the Recon Engine project below.</div>
+      <div class="tags">
+        <span class="tag s">Browser APIs</span><span class="tag s">Fingerprinting</span>
+        <span class="tag">Passive Recon</span><span class="tag">OSINT</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">💻</span>
+      <div class="skill-name">Scripting</div>
+      <div class="skill-desc">Writing Python and Bash scripts for automation, log parsing, and building security tools from scratch.</div>
+      <div class="tags">
+        <span class="tag s">Python</span><span class="tag s">Bash</span>
+        <span class="tag">Regex</span><span class="tag">Automation</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">🖥️</span>
+      <div class="skill-name">Linux & Windows</div>
+      <div class="skill-desc">Comfortable navigating both operating systems — command line, file system, process management, and basic hardening.</div>
+      <div class="tags">
+        <span class="tag s">Linux CLI</span><span class="tag s">Windows</span>
+        <span class="tag">Kali</span><span class="tag">Ubuntu</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">🛡️</span>
+      <div class="skill-name">Security Concepts</div>
+      <div class="skill-desc">CIA triad, kill chain, MITRE ATT&CK framework, common attack types — studying how attackers think to understand how defenders respond.</div>
+      <div class="tags">
+        <span class="tag s">MITRE ATT&CK</span><span class="tag">Kill Chain</span>
+        <span class="tag">CIA Triad</span><span class="tag">IOCs</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <span class="skill-icon">🌍</span>
+      <div class="skill-name">Web Technologies</div>
+      <div class="skill-desc">HTML, CSS, JavaScript — enough to understand web attack surfaces, build security demos, and read front-end code critically.</div>
+      <div class="tags">
+        <span class="tag s">HTML/CSS</span><span class="tag s">JavaScript</span>
+        <span class="tag">Browser APIs</span><span class="tag">DOM</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+
+<!-- PROJECTS -->
+<section id="projects">
+<div class="wrap">
+  <div class="eyebrow">Projects</div>
+  <h2 class="stitle">Things I've Actually Built</h2>
+
+  <div class="proj-row reveal">
+    <div>
+      <span class="proj-cat">Passive OSINT · Browser Fingerprinting</span>
+      <h3 class="proj-name">Passive Recon Engine</h3>
+      <p class="proj-desc">
+        Built a client-side passive telemetry page that enumerates browser-exposed attack surface vectors —
+        user-agent, OS platform, screen resolution, CPU thread count, device memory, timezone, network type,
+        and touch capability — entirely without server-side logging or active network probes.
+        Demonstrates a core SOC concept: understanding what metadata your assets expose before an attacker does.
+      </p>
+      <div class="tags">
+        <span class="tag s">JavaScript</span><span class="tag s">Browser APIs</span>
+        <span class="tag">Passive Recon</span><span class="tag">Fingerprinting</span><span class="tag">HTML/CSS</span>
+      </div>
+    </div>
+    <div class="proj-links">
+      <a class="plink hot" href="recon.html">Live Demo →</a>
+      <a class="plink" href="#">GitHub</a>
+    </div>
+  </div>
+
+  <div class="proj-row reveal">
+    <div>
+      <span class="proj-cat">Portfolio · Web Development</span>
+      <h3 class="proj-name">This Portfolio Site</h3>
+      <p class="proj-desc">
+        Designed and built entirely from scratch — no templates, no frameworks. Single-file HTML/CSS/JS with
+        a terminal-inspired dark aesthetic, scroll-reveal animations, sticky nav with active section tracking,
+        and full mobile responsiveness. The goal: show I can build things, not just talk about them.
+      </p>
+      <div class="tags">
+        <span class="tag s">HTML</span><span class="tag s">CSS</span>
+        <span class="tag s">JavaScript</span><span class="tag">Responsive Design</span>
+      </div>
+    </div>
+    <div class="proj-links">
+      <a class="plink hot" href="#">GitHub →</a>
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- LEARNING -->
+<section id="learning">
+<div class="wrap">
+  <div class="eyebrow">Currently Learning</div>
+  <h2 class="stitle">What I'm Working Towards</h2>
+  <div class="learning-grid">
+
+    <div class="learn-card reveal">
+      <span class="learn-icon">🎯</span>
+      <div>
+        <div class="learn-name">TryHackMe — SOC Level 1 Path</div>
+        <div class="learn-sub">Working through the structured SOC analyst learning path — SIEM, incident triage, log analysis, and threat hunting. <span>In Progress</span></div>
+      </div>
+    </div>
+
+    <div class="learn-card reveal">
+      <span class="learn-icon">📡</span>
+      <div>
+        <div class="learn-name">Networking Deep Dive</div>
+        <div class="learn-sub">Studying CompTIA Network+ material — subnetting, routing, switching, and protocols. Building the foundation for reading network traffic. <span>In Progress</span></div>
+      </div>
+    </div>
+
+    <div class="learn-card reveal">
+      <span class="learn-icon">🔐</span>
+      <div>
+        <div class="learn-name">CompTIA Security+ Prep</div>
+        <div class="learn-sub">Working through Security+ study materials covering threat actors, cryptography, identity management, and risk frameworks. <span>Upcoming</span></div>
+      </div>
+    </div>
+
+    <div class="learn-card reveal">
+      <span class="learn-icon">🐍</span>
+      <div>
+        <div class="learn-name">Python for Security</div>
+        <div class="learn-sub">Building scripts for log parsing, port scanning, and automating repetitive tasks — applying Python directly to security use cases. <span>In Progress</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact">
+<div class="wrap">
+  <div class="eyebrow">Contact</div>
+  <h2 class="stitle">Let's Talk</h2>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-intro">
+        Looking for my <strong>first role in cybersecurity</strong> — SOC Analyst, Junior Security Analyst,
+        or any entry-level position where I can learn, contribute, and grow fast.
+        I'm a quick learner, genuinely passionate about this field, and not afraid of hard work.
+      </p>
+      <div class="clinks">
+        <a class="clink" href="mailto:your@email.com">
+          <span class="clink-icon">✉</span>
+          your@email.com
+          <span class="clink-lbl">Email</span>
+        </a>
+        <a class="clink" href="https://linkedin.com/in/josemonjames" target="_blank">
+          <span class="clink-icon">💼</span>
+          linkedin.com/in/josemonjames
+          <span class="clink-lbl">LinkedIn</span>
+        </a>
+        <a class="clink" href="https://github.com/josemonjames" target="_blank">
+          <span class="clink-icon">🐙</span>
+          github.com/josemonjames
+          <span class="clink-lbl">GitHub</span>
+        </a>
+        <a class="clink" href="https://tryhackme.com/p/josemonjames" target="_blank">
+          <span class="clink-icon">🎯</span>
+          TryHackMe Profile
+          <span class="clink-lbl">Progress Tracker</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="avail-card reveal">
+      <div class="avail-head">
+        <div class="avail-dot"></div>
+        <span class="avail-title">Availability</span>
+      </div>
+      <div class="avail-body">
+        <div class="avail-row"><span class="avail-key">status</span><span class="avail-val g">● Open to hire</span></div>
+        <div class="avail-row"><span class="avail-key">level</span><span class="avail-val">Entry / Junior</span></div>
+        <div class="avail-row"><span class="avail-key">type</span><span class="avail-val">Full-time</span></div>
+        <div class="avail-row"><span class="avail-key">work-mode</span><span class="avail-val">Remote / Hybrid / On-site</span></div>
+        <div class="avail-row"><span class="avail-key">notice</span><span class="avail-val">Immediate</span></div>
+        <div class="avail-row"><span class="avail-key">response-time</span><span class="avail-val">Within 24h</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-copy">© 2025 <strong>Josemon James</strong> — Built from scratch, no templates</div>
+    <div class="foot-copy">Aspiring Cybersecurity Analyst</div>
+  </div>
+</footer>
+
+
+<script>
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Active nav link
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if(window.scrollY >= s.offsetTop - 220) cur = s.id; });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
